@@ -1,8 +1,5 @@
 "use strict";
 
-const readlineSync = require('readline-sync');
-
-
 //wait for user's response 
 
 //const userName = readlineSync.question(' May I have your name? ');
@@ -10,7 +7,7 @@ const readlineSync = require('readline-sync');
 
 const options = [" insert new task ", " remove task"," remove date task ", " show tasks "," close "];
 let tasks = [];
-let index = 0;
+let id = 0;
 
 function start(){
     
@@ -50,6 +47,7 @@ function insertTask(){
     const task = new Object();
     task.title = readlineSync.question(' Add a title for the task: ');
     task.description = readlineSync.question(' Add a description: ');
+    task.id = id;
     if (readlineSync.keyInYN(' Is it urgent?')) {
         // 'Y' key was pressed.
         task.urgent = 'urgent';
@@ -78,15 +76,11 @@ function insertTask(){
 
         if(data.getTime()> today.getTime()){
             task.deadline = data;
-           /* task.timeOut = setTimeout(function(){
-                deadTask(index);
-                console.log(index);
-            },10000);
-            console.log('Hola')*/
+            task.timeOut = setTimeout(deadTask,data.getTime()-today.getTime()-3600*1000,task.id);
             
         }else{
             console.log(' Date non valid ');
-            return start();
+            //return start();
         }
 
 
@@ -95,9 +89,9 @@ function insertTask(){
         task.deadline = false;
         
       }
-    index++;
+    id ++;
     tasks.push(task);
-    return start();
+   /// return start();
 }
 
 function removeTask(){
@@ -185,9 +179,17 @@ function removeDayTask(){
     return start();
 
 }
-function deadTask(i){
+function deadTask(x){
     //tasks.splice(i,1);
-    console.log('dead');
+    let l = tasks.length;
+
+    for(let i = 0; i<l; i++){
+        if(tasks[i].id == x){
+            tasks.splice(i,1);
+        }
+    }
+    return start();
+
 }
 
 start();
