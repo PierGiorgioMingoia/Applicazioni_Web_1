@@ -80,7 +80,7 @@ function insertTask(){
             
         }else{
             console.log(' Date non valid ');
-            //return start();
+           // return start();
         }
 
 
@@ -91,7 +91,7 @@ function insertTask(){
       }
     id ++;
     tasks.push(task);
-   /// return start();
+    //return start();
 }
 
 function removeTask(){
@@ -105,7 +105,7 @@ function removeTask(){
         console.log(' Task not found ')
     }
     //console.log(tasks);
-    return start();
+   // return start();
 }
 
 function checkTitle(t,arr){
@@ -143,7 +143,7 @@ function showTasks(){
     let b = [...tasks];
     b.sort(compareTitle);
     console.log(b);
-    return start();
+   // return start();
 
 }
 
@@ -176,7 +176,7 @@ function removeDayTask(){
     }else{
         console.log(' Date not found ')
     }
-    return start();
+   // return start();
 
 }
 function deadTask(x){
@@ -188,8 +188,11 @@ function deadTask(x){
             tasks.splice(i,1);
         }
     }
-    return start();
+   // return start();
 
 }
 
-start();
+const menu = setInterval(()=>{
+    start();
+},500);
+  
