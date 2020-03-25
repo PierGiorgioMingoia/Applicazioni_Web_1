@@ -1,5 +1,5 @@
 "use strict";
-
+const readlineSync = require('readline-sync');
 //wait for user's response 
 
 //const userName = readlineSync.question(' May I have your name? ');
