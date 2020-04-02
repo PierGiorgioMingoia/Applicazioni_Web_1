@@ -1,0 +1,14 @@
+body {
+    margin-left: 0;
+    padding-top: 70px; 
+    height: 100%;
+}
+    
+
+#side{
+    color: white;
+   
+}
+html, body {
+    overflow: auto;
+}

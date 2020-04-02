@@ -1,0 +1,28 @@
+#sideBar{
+  color: white;
+  height: auto;
+  padding: 10px;
+}
+#foot{
+  margin-top: auto;
+}
+.buttonProject{
+  margin-bottom: 5px;
+  margin-left: 25%;
+}
+
+#project{
+  align-items: right;
+}
+
+#cardContainer{
+  margin-top: 10px;
+}
+.projectT{
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+}
+.card-text{
+  margin-top: 15px;
+}
