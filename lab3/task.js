@@ -7,8 +7,10 @@ const tasks = [
         "shared" : false,
         "with" : null,
         "deadline" : true,
-        "time" :    new Date(),
-        "date" : "Friday 27 March 2020 at 11:30"
+        "time" :  moment("2020-10-20 4:30","YYYY-MM-DD HH:mm"),
+        "date" : moment("2020-10-20 4:30","YYYY-MM-DD HH:mm").format('LLLL'),
+        "completed" : false,
+        "expired": false
     },
     {
         "id" : 1,
@@ -18,7 +20,22 @@ const tasks = [
         "shared" : true,
         "with" : "Marzia",
         "deadline" : true,
-        "time" : new Date(2020,04,04,15,0,0,0),
-        "date" : "Today at 14:00"
+        "time" : moment("2020-04-04 4:30","YYYY-MM-DD HH:mm"),
+        "date" :  moment("2020-04-04 4:30","YYYY-MM-DD HH:mm").format('LLLL'),
+        "completed": false,
+        "expired":false
+    },
+    {
+        "id" : 2,
+        "description" : "Buy some pasta",
+        "project"     : "Personal",
+        "important" : false,
+        "shared" : true,
+        "with" : "Marzia",
+        "deadline" : true,
+        "time" : moment("2020-04-03 22:16","YYYY-MM-DD HH:mm"),
+        "date" :  moment("2020-04-03 22:16","YYYY-MM-DD HH:mm").format('LLLL'),
+        "completed": false,
+        "expired":false
     }
 ]

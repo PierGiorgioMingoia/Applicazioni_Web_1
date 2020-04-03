@@ -1,14 +1,15 @@
 //when the page is loaded 
 
-console.log(moment("2020-01-01", "YYYY-MM-DD").format("MMM Do YY")      );
 
 window.addEventListener('load',event =>{
     loadTasks();
+    createTimeOut();
 });
 
+let timeOut = [];
 let filters = ['All', 'Important', 'Today', 'Next 7 Dayz', 'Private', 'Shared' ];
 let projects = ['Web Application I', 'Personal'];
-let activeFilter = 2;
+let activeFilter = 0;
 let main = document.getElementById('main-tasks-cont');
 let list = document.createElement('ul');
 list.className =  "list-group list-group-flush";
@@ -35,21 +36,37 @@ function loadTasks(){
     }else if(activeFilter == 2){
 
         title.innerHTML = "Today";
-        const today = new Date();
+        const today =moment();
         let newArray = tasks.filter(function(e1){
-            return e1.time.getDate() == today.getDate();
+            return e1.time.startOf('day').isSame(today.startOf('day')) ;
         });
         console.log(newArray);
         creatTasksList(newArray);
          
     }else if(activeFilter == 3){
-        //next 7 day
+        //next 7 day.
+        title.innerHTML = "Next 7 days"
+        const today = moment();
+        let newArray = tasks.filter(function(e1){
+            return e1.time.diff(today,'days')<=7;
+        })
+        creatTasksList(newArray);
+
     }else if(activeFilter == 4){
         //private
+        title.innerHTML = "Private";
+        let newArray = tasks.filter(function(e1){
+            return !e1.shared;
+        });
+        creatTasksList(newArray);
+
     }else if(activeFilter == 5){
-        //private
-    }else if(activeFilter == 6){
         //shared
+        title.innerHTML = "Shared";
+        let newArray = tasks.filter(function(e1){
+            return e1.shared;
+        });
+        creatTasksList(newArray);
     }
 }
 
@@ -57,14 +74,15 @@ function loadTasks(){
 function creatTasksList(tasks){
     
     tasks.forEach(task =>{
-        console.log(tasks);
-        console.log(task.description);
+        //console.log(tasks);
+        //console.log(task.description);
         let li = document.createElement('li');
         li.className = "list-group-item";
         let  div = document.createElement('div');
         div.className = "d-flex w-100 justify-content-between";
         let checkbox = document.createElement('div');
         checkbox.className = "custom-control custom-checkbox";
+        li.id = "box_"+task.id; 
         let input = document.createElement('input');
 
         if(task.important){
@@ -77,7 +95,7 @@ function creatTasksList(tasks){
         input.id = "check-"+task.id;
         let label = document.createElement('label');
         label.className = "custom-control-label",
-        label.for = "${input.id}";
+        label.for = input.id;
         label.innerText = task.description;
         let span = document.createElement('span');
         span.className = "badge badge-success ml-4";
@@ -105,4 +123,51 @@ function creatTasksList(tasks){
         list.appendChild(li);
     });
 
+}
+
+function filterChanged(x){
+
+    if(x!=activeFilter){
+        let f = document.getElementById("f"+x);
+        let d = document.getElementById("f"+activeFilter);
+        f.className = "list-group-item list-group-item-action active";
+        d.className = "list-group-item list-group-item-action"
+        activeFilter = x;
+        list.innerHTML='';
+        loadTasks();
+        console.log("Tasks loaded");
+    }else{
+
+    }
+
+}
+
+
+//function when a task expire 
+
+function taskExpire(id){
+
+    const index = findTask(id);
+    tasks[index].expired = true;
+    let box = document.getElementById("box_"+id);
+    box.className = "list-group-item bg-warning";
+
+}
+
+function findTask(id){
+   const a = tasks.map(function(e){
+       return e.id;
+   }).indexOf(id);
+   return a;   
+}
+
+
+function createTimeOut(){
+    
+    let today = moment();
+    tasks.forEach(task =>{
+        let a = setTimeout(taskExpire,task.time.diff(today),task.id);
+        timeOut.push(a);
+    });
+    
 }
