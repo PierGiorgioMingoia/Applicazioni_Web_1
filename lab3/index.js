@@ -77,7 +77,13 @@ function creatTasksList(tasks){
         //console.log(tasks);
         //console.log(task.description);
         let li = document.createElement('li');
-        li.className = "list-group-item";
+        
+        if(task.expired){
+            li.className = "list-group-item bg-warning";
+        }else{
+            li.className = "list-group-item";
+        }
+        
         let  div = document.createElement('div');
         div.className = "d-flex w-100 justify-content-between";
         let checkbox = document.createElement('div');
@@ -169,5 +175,5 @@ function createTimeOut(){
         let a = setTimeout(taskExpire,task.time.diff(today),task.id);
         timeOut.push(a);
     });
-    
+
 }
