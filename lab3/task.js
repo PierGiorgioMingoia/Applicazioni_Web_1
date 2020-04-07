@@ -7,8 +7,8 @@ const tasks = [
         "shared" : false,
         "with" : null,
         "deadline" : true,
-        "time" :  moment("2020-10-20 4:30","YYYY-MM-DD HH:mm"),
-        "date" : moment("2020-10-20 4:30","YYYY-MM-DD HH:mm").format('LLLL'),
+        "time" :  moment("2020-04-06 4:30","YYYY-MM-DD HH:mm"),
+        "date" : moment("2020-04-06 4:30","YYYY-MM-DD HH:mm").format('LLLL'),
         "completed" : false,
         "expired": false
     },
@@ -20,8 +20,8 @@ const tasks = [
         "shared" : true,
         "with" : "Marzia",
         "deadline" : true,
-        "time" : moment("2020-04-04 4:30","YYYY-MM-DD HH:mm"),
-        "date" :  moment("2020-04-04 4:30","YYYY-MM-DD HH:mm").format('LLLL'),
+        "time" : moment("2020-04-06 4:30","YYYY-MM-DD HH:mm"),
+        "date" :  moment("2020-04-06 4:30","YYYY-MM-DD HH:mm").format('LLLL'),
         "completed": false,
         "expired":false
     },
@@ -33,8 +33,8 @@ const tasks = [
         "shared" : true,
         "with" : "Marzia",
         "deadline" : true,
-        "time" : moment("2020-04-03 22:16","YYYY-MM-DD HH:mm"),
-        "date" :  moment("2020-04-03 22:16","YYYY-MM-DD HH:mm").format('LLLL'),
+        "time" : moment("2020-04-09 22:16","YYYY-MM-DD HH:mm"),
+        "date" :  moment("2020-04-09 22:16","YYYY-MM-DD HH:mm").format('LLLL'),
         "completed": false,
         "expired":false
     }

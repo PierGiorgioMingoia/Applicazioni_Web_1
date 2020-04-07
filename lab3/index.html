@@ -70,7 +70,16 @@
                 <main class="col-sm-8 col-12 below-nav" id="main-tasks-cont">
                     
                      <!-- Add a new task... -->
-                     <button type="button" class="btn btn-lg btn-success fixed-right-bottom">&#43;</button>
+                     <button type="button" class="btn btn-lg btn-success fixed-right-bottom" onclick="openForm()">&#43;</button>
+                     <div class="form-popup" id="myForm">
+                        <form action="#" class="form-container">
+                          <h1>Add new Task</h1>
+                      
+                         
+                          <button type="button" class="btn">Login</button>
+                          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                        </form>
+                      </div>
                 </main>
             </div>
         </div>
