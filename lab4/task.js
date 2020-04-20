@@ -65,8 +65,8 @@ addTaskB.addEventListener('click',function(){
 
         const task = new Task(desctiptionInput.value,projectInput.value,checkboxImportant.checked,checkboxShared.checked,w,checkboxDeadline.checked,mom)
         console.log(task);
-        tasks.push(task);
-
+        app.tasks.push(task);
+        app.loadTasks();
     }else{
         alert('Fill missing values');
     }
@@ -81,6 +81,10 @@ class Task{
         this.id = index
         index++;
         this.description = description;
+        if(!projects.includes(project)){
+            projects.push(project);
+            app.loadProjects();
+        }
         this.project = project;
         this.important = important;
         this.shared = shared;

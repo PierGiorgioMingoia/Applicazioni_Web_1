@@ -6,6 +6,8 @@
  main.appendChild(title);
  main.appendChild(list);
  let timeOut = [];
+const projectsList = document.getElementById("projectsList");
+
 
 //constructor of appTask Obj
 class App{
@@ -14,12 +16,14 @@ class App{
         this.tasks = tasks;
         this.filters = filters;
         this.activeFilter = 0;
+        this.projects = projects;
     }
     getT(){
         return this.tasks;
     }
 
     loadTasks(){
+        list.innerHTML='';
         console.log(this.activeFilter);
         if(this.activeFilter === 0){
        
@@ -42,7 +46,11 @@ class App{
             title.innerHTML = "Today";
             const today = moment();
             let newArray = this.tasks.filter(function(e1){
-                return e1.time.startOf('day').isSame(today.startOf('day')) ;
+                if(e1.deadline){
+                    return e1.time.startOf('day').isSame(today.startOf('day')) ;
+                } else{
+                    return false;
+                }
             });
             console.log(newArray);
             this.creatTasksList(newArray);
@@ -53,7 +61,11 @@ class App{
             title.innerHTML = "Next 7 days"
             const today = moment();
             let newArray = this.tasks.filter(function(e1){
-                return e1.time.diff(today,'days')<=7 && e1.time.diff(today,'days')>=0 ;
+                if(e1.deadline) {
+                    return e1.time.diff(today,'days')<=7 && e1.time.diff(today,'days')>=0 ;
+                }else{
+                    return false;
+                }
             })
             this.creatTasksList(newArray);
             this.createTimeOut(newArray);
@@ -162,18 +174,43 @@ class App{
         let today = moment();
         tasks.forEach(task =>{
             if(task.deadline){
-                let a = setTimeout((id)=>{
-                    const index = this.findTask(id);
-                    app.tasks[index].expired = true;
-                    let box = document.getElementById("task"+id);
-                    box.className = "list-group-item bg-warning";
-                },task.time.diff(today),task.id);
-                timeOut.push(a);
+                if(task.time.diff(today,'days')<=7){
+                    let a = setTimeout((id)=>{
+                        const index = this.findTask(id);
+                        app.tasks[index].expired = true;
+                        let box = document.getElementById("task"+id);
+                        box.className = "list-group-item bg-warning";
+                    },task.time.diff(today),task.id);
+                    timeOut.push(a);
+                }
             }
         });
     
     }
     
+
+    loadProjects(){
+        projectsList.innerHTML = '';
+        this.projects.forEach(project =>{
+            const a = document.createElement('a');
+            a.innerText = project;
+            a.className = 'list-group-item list-group-item-action';
+
+            a.addEventListener('click',event =>{
+                //filtrare i task;
+                list.innerHTML = '';
+                let newArray = this.tasks.filter(function(e1){
+                    return e1.project == project;
+                });
+                this.creatTasksList(newArray);
+                this.createTimeOut(newArray);
+            });
+            projectsList.appendChild(a);
+        })
+    }
+
+
+
 }
 //function when a task expire 
 
